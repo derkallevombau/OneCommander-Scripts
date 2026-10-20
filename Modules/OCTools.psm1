@@ -17,3 +17,17 @@ function getOCShortcutDisplayString
 
 	$scDisp
 }
+
+<#
+.SYNOPSIS
+	Returns a collection of paths of files/folders copied to clipboard.
+.LINK
+	https://learn.microsoft.com/en-us/dotnet/api/system.windows.clipboard.getfiledroplist?view=windowsdesktop-10.0
+#>
+function getClipbrdFiles
+{
+	# The Clipboard class used here is part of WPF.
+	Add-Type -AssemblyName PresentationCore
+
+	[System.Windows.Clipboard]::GetFileDropList()
+}

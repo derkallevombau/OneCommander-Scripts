@@ -2,19 +2,11 @@
 
 Import-Module 'E:\Dokumente\VS Code\Projects\Scripts\OneCommander Scripts\Modules\OCTools.psm1'
 
-$target=Get-Clipboard
+$target=getClipbrdFiles
 
-if ($target -eq '')
+if ($target.Count -ne 1 -or !(Test-Path $target -PathType Container))
 {
-	throw "Clipboard empty or no text. Don't copy the folders, copy as path ($(getOCShortcutDisplayString -Id CopyPath))."
-}
-elseif ($target.Count -gt 1 -or !(Test-Path $target -PathType Container))
-{
-	# Show what's in clipboard, but don't print a whole Word doc.
-	$text=$target -join ' '
-	if ($text.Length -gt 50) { $text=$text.Substring(0, 50) + ' [...]' }
-
-	throw "'$text' is not a single directory path."
+	throw "Inappropriate clipboard content. Copy a single directory."
 }
 
 $linkName=Split-Path $target -Leaf
