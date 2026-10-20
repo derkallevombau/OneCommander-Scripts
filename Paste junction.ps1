@@ -9,7 +9,11 @@ if ($target -eq '')
 }
 elseif ($target.Count -gt 1 -or !(Test-Path $target -PathType Container))
 {
-	Write-Error "'$target' is not a single directory path. Exiting."
+	# Show what's in clipboard, but don't print a whole Word doc.
+	$text=$target -join ' '
+	if ($text.Length -gt 50) { $text=$text.Substring(0,50) + ' [...]' }
+
+	Write-Error "'$text' is not a single directory path."
 	exit 1
 }
 
