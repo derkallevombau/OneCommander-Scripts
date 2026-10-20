@@ -18,3 +18,6 @@ $link=Join-Path -Path $env:CURRENT_DIR -ChildPath $linkName
 
 Write-Host "Creating junction $link => $target..."
 New-Item -Path $link -Value $target -ItemType Junction
+
+# Propagate error from New-Item, if any.
+exit $? ? 0 : 1
