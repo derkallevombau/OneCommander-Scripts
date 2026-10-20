@@ -2,16 +2,15 @@
 
 function getUsageHint
 {
-	$ocShortcutsFile=Join-Path -Path $env:OC_SETTINGS_DIR -ChildPath Shortcuts.json
-	$ocShortcuts=Get-Content -Path $ocShortcutsFile | ConvertFrom-Json
-	$copyAsPathShortcut=$ocShortcuts.CopyPath
+	$f=Join-Path -Path $env:OC_SETTINGS_DIR -ChildPath Shortcuts.json
+	$sc=Get-Content -Path $f | ConvertFrom-Json | select -ExpandProperty CopyPath
 
 	# Use WPF to convert to string
 	Add-Type -AssemblyName PresentationCore
-	$copyAsPathKeyGesture=[System.Windows.Input.KeyGesture]::new($copyAsPathShortcut.Key, $copyAsPathShortcut.Modifiers)
-	$copyAsPathDisplayString=$copyAsPathKeyGesture.GetDisplayStringForCulture([cultureinfo]::CurrentCulture)
+	$scDisp=[System.Windows.Input.KeyGesture]::new($sc.Key, $sc.Modifiers).
+		GetDisplayStringForCulture([cultureinfo]::CurrentCulture)
 
-	"Don't copy the folders, copy as path ($copyAsPathDisplayString)."
+	"Don't copy the folders, copy as path ($scDisp)."
 }
 
 $target=Get-Clipboard
