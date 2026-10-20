@@ -1,23 +1,12 @@
 #PWSH
 
-function getUsageHint
-{
-	$f=Join-Path -Path $env:OC_SETTINGS_DIR -ChildPath Shortcuts.json
-	$sc=Get-Content -Path $f | ConvertFrom-Json | select -ExpandProperty CopyPath
-
-	# Use WPF to convert to string
-	Add-Type -AssemblyName PresentationCore
-	$scDisp=[System.Windows.Input.KeyGesture]::new($sc.Key, $sc.Modifiers).
-		GetDisplayStringForCulture([cultureinfo]::CurrentCulture)
-
-	"Don't copy the folders, copy as path ($scDisp)."
-}
+Import-Module 'E:\Dokumente\VS Code\Projects\Scripts\OneCommander Scripts\Modules\OCTools.psm1'
 
 $target=Get-Clipboard
 
 if ($target -eq '')
 {
-	throw "Clipboard empty or no text. $(getUsageHint)"
+	throw "Clipboard empty or no text. Don't copy the folders, copy as path ($(getOCShortcutDisplayString -Id CopyPath))."
 }
 elseif ($target.Count -gt 1 -or !(Test-Path $target -PathType Container))
 {
