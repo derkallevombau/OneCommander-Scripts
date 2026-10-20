@@ -2,7 +2,7 @@
 
 $target=Get-Clipboard
 
-if ($target -eq $null)
+if ($target -eq '')
 {
 	Write-Error "Clipboard empty! Don't copy the folders, copy as path (Ctrl-Shift-C)."
 	exit 1
