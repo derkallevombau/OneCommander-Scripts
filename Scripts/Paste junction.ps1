@@ -1,8 +1,10 @@
 #PWSH
 
-Import-Module 'E:\Dokumente\VS Code\Projects\Scripts\OneCommander Scripts\Modules\OCTools.psm1'
+Add-Type -AssemblyName PresentationCore
 
-$target=getClipbrdFiles
+# The subexpression operator is crucial to turn a single-element StringCollection into a
+# string (forces enumeration by running the call through pipeline semantics).
+$target=$([System.Windows.Clipboard]::GetFileDropList())
 
 if ($target.Count -ne 1 -or !(Test-Path $target -PathType Container))
 {

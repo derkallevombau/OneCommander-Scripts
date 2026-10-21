@@ -15,19 +15,11 @@ function block
 
 try
 {
-	# Turn non-terminating errors into terminating ones (see
-	# https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_error_handling#the-erroractionpreference-variable).
-	# Applies to child scopes. Thus, we don't need `exit $? ? 0 : 1` in actual script.
 	$ErrorActionPreference='Stop'
 
 	& $Path @ArgumentList
-
-	if (! $?) # Non-terminating error
-	{
-		block
-	}
 }
-catch # Script-terminating error
+catch
 {
 	if ($_.TargetObject -eq $_.FullyQualifiedErrorId) # throw <string>
 	{
