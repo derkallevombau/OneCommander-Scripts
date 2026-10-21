@@ -7,11 +7,7 @@ param(
 	[PSObject[]]$ArgumentList
 )
 
-function block
-{
-	Write-Host -NoNewline "`nPress <Enter> to exit."
-	Read-Host
-}
+Import-Module 'E:\Dokumente\VS Code\Projects\Scripts\OneCommander Scripts\Modules\ConsoleTools.psm1'
 
 try
 {
@@ -24,7 +20,7 @@ try
 
 	if (! $?) # Non-terminating error
 	{
-		block
+		keepConsoleOpen
 	}
 }
 catch # Script-terminating error
@@ -39,5 +35,5 @@ catch # Script-terminating error
 		$_
 	}
 
-	block
+	keepConsoleOpen
 }

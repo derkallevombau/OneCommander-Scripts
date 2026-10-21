@@ -1,6 +1,6 @@
 #PWSH
 
-Import-Module 'E:\Dokumente\VS Code\Projects\Scripts\OneCommander Scripts\Modules\OCTools.psm1'
+Import-Module 'E:\Dokumente\VS Code\Projects\Scripts\OneCommander Scripts\Modules\WindowsShellTools.psm1'
 
 $target=getClipbrdFiles
 
